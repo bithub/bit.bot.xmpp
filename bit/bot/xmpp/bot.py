@@ -12,7 +12,7 @@ from bit.bot.common.interfaces import IGroups, IMember, IGroup
 from wokkel.xmppim import MessageProtocol, AvailablePresence
 
 from bit.bot.base.roles import RoleProvider
-from bit.bot.base.request import BitBotRequest
+from bit.bot.xmpp.request import BitBotRequest
 
 from bit.bot.common.interfaces import IGroupOfPeople, IMembers, IBotRequest, ICurateBotProtocol, IMemory, IRoles, IConfiguration
 
