@@ -12,7 +12,7 @@ from bit.bot.common.interfaces import IConfiguration, IJabber, IServices
 from bit.bot.base.plugin import BotPlugin
 
 from bit.bot.xmpp.presence import BotPresence
-from trinity.curate.bot.proto import CurateBotProtocol
+from bit.bot.xmpp.bot import BotProtocol
 
 
 class BotXMPP(BotPlugin):
