@@ -29,7 +29,7 @@ class BotXMPP(BotPlugin):
         
     def load_services(self):        
         bot = getUtility(IJabber)
-        curatebot = CurateBotProtocol()        
+        curatebot = BotProtocol()        
         presence = BotPresence(curatebot)
         curatebot._presence = presence
         curatebot.setHandlerParent(bot)    
