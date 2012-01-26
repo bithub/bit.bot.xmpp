@@ -14,7 +14,10 @@ from wokkel.xmppim import MessageProtocol, AvailablePresence
 from bit.bot.base.roles import RoleProvider
 from bit.bot.xmpp.request import BitBotRequest
 
-from bit.bot.common.interfaces import IGroupOfPeople, IMembers, IBotRequest, ICurateBotProtocol, IMemory, IRoles, IConfiguration
+from bit.bot.common.interfaces import IGroupOfPeople, IMembers, IBotRequest, ICurateBotProtocol, IMemory, IRoles
+
+from bit.core.interfaces import IConfiguration
+
 
 from trinity.curate.ldap.network_members import NetworkMembers, NetworkMember
 from trinity.curate.ldap.network_groups import NetworkGroups, NetworkGroup

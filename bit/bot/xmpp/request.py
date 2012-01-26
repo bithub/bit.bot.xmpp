@@ -3,8 +3,11 @@
 from zope.interface import implements
 from zope.component import getUtility
 
-from bit.bot.common.interfaces import IIntelligent, IConfiguration
-from bit.bot.common.interfaces import ISocketRequest
+from bit.core.interfaces import IConfiguration
+
+from bit.bot.common.interfaces import IIntelligent, ISocketRequest
+
+
 
 class BitBotRequest(object):
     implements(ISocketRequest)
