@@ -25,6 +25,7 @@ class BitBotRequest(object):
     def ask(self,msg):
         body = str(msg.body)
         mfrom = msg['from']
+        self.session_id = msg['from']
         def _respond(response):
             if response:
                 self.proto.speak(msg['from'],response)         
@@ -33,7 +34,7 @@ class BitBotRequest(object):
         if domain == mfrom.split('/')[0].split('@')[1]:
             getUtility(IIntelligent).bot.setPredicate('secure','yes',mfrom)
 
-        ask = getUtility(IIntelligent).respond(body,mfrom)
+        ask = getUtility(IIntelligent).respond(self,body,mfrom)
         ask.addCallback(_respond)
         return ask
 
