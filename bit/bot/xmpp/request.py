@@ -22,6 +22,9 @@ class BitBotRequest(object):
     def args(self):
         return self._args    
 
+    def speak(self,msg):
+        self.proto.speak(self.session_id,msg)
+
     def ask(self,msg):
         body = str(msg.body)
         mfrom = msg['from']
