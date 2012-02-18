@@ -23,7 +23,7 @@ class BotXMPP(BotPlugin):
     def utils(self):
         configuration = getUtility(IConfiguration)        
         bot_jid = JID(configuration.get('bot','jid'))
-        password = configuration.get('bot','password')                        
+        password = configuration.get('passwords',configuration.get('bot','password'))
         return [(client.XMPPClient(bot_jid, password),IJabber)]
         
     def load_services(self):        
