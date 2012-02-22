@@ -1,0 +1,8 @@
+<configure 
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="bit.bot.xmpp">
+  <include package="bit.bot.base" />
+  <utility
+      factory=".xmpp.botXMPP"
+      />  
+</configure>

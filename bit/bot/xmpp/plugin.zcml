@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+  <bot
+      parent="bit.bot.xmpp"
+      name="bot"      
+      factory=".xmpp.botFactory"
+      />
+
+</configure>
+
