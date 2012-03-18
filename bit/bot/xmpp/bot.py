@@ -5,8 +5,6 @@ from zope.component import getGlobalSiteManager,getUtility
 
 from twisted.words.xish import domish
 
-from ldaptor.interfaces import ILDAPEntry
-
 from bit.bot.common.interfaces import IGroups, IMember, IGroup
 
 from wokkel.xmppim import MessageProtocol, AvailablePresence
@@ -19,17 +17,19 @@ from bit.bot.common.interfaces import IGroupOfPeople, IMembers, IBotRequest, ICu
 from bit.core.interfaces import IConfiguration
 
 
-from trinity.curate.ldap.network_members import NetworkMembers, NetworkMember
-from trinity.curate.ldap.network_groups import NetworkGroups, NetworkGroup
-
-from trinity.curate.db.memory import MySQLMemory
-
 class BotProtocol(MessageProtocol):
     implements(ICurateBotProtocol)
     
     def __init__(self):
         super(MessageProtocol,self).__init__()
+        #return
+    
 
+        #from ldaptor.interfaces import ILDAPEntry
+        #from trinity.curate.ldap.network_members import NetworkMembers, NetworkMember
+        #from trinity.curate.ldap.network_groups import NetworkGroups, NetworkGroup
+        
+        #from trinity.curate.db.memory import MySQLMemory
         
         gsm = getGlobalSiteManager()
 
@@ -42,6 +42,8 @@ class BotProtocol(MessageProtocol):
                             ,(ICurateBotProtocol,)
                             ,IBotRequest
                             )
+
+        return
 
         members = NetworkMembers(self)
 
