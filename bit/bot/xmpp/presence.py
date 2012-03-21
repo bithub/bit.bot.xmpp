@@ -1,6 +1,5 @@
-
-
 from wokkel import xmppim
+
 
 class BotPresence(xmppim.PresenceClientProtocol):
 
@@ -32,7 +31,7 @@ class BotPresence(xmppim.PresenceClientProtocol):
         print 'got unsubscribed', entity
         self.unsubscribed(entity)
         self.unsubscribe(entity)
-        
+
     def availableReceived(self, entity, show=None, statuses=None, priority=0):
         print 'got available'
         self.friends_online.add(entity)
@@ -40,4 +39,3 @@ class BotPresence(xmppim.PresenceClientProtocol):
     def unavailableReceived(self, entity, statuses=None):
         print 'unavailbale recieved'
         self.friends_online.remove(entity)
-
