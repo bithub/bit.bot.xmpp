@@ -6,33 +6,33 @@ from twisted.words.xish import domish
 from wokkel.xmppim import MessageProtocol, AvailablePresence
 
 from bit.bot.xmpp.request import BitBotRequest
-from bit.bot.common.interfaces import IBotRequest, ICurateBotProtocol
+from bit.bot.common.interfaces import IBotRequest, IXMPPBotProtocol
 from bit.core.interfaces import IConfiguration
 
 
 class BotProtocol(MessageProtocol):
-    implements(ICurateBotProtocol)
+    implements(IXMPPBotProtocol)
 
     def __init__(self):
         super(MessageProtocol, self).__init__()
 
+        # FIX: shift this to zcml
         gsm = getGlobalSiteManager()
-
         gsm.registerUtility(self,
-                            ICurateBotProtocol
+                            IXMPPBotProtocol
                             )
 
         gsm.registerAdapter(BitBotRequest,
-                            (ICurateBotProtocol, ),
+                            (IXMPPBotProtocol, ),
                             IBotRequest
                             )
 
     def connectionMade(self):
-        print "Connected!"
-        # send initial presence
+        # im online!
         self.send(AvailablePresence())
 
     def connectionLost(self, reason):
+        # im offline!
         print "Disconnected!"
 
     def speak(self, recip, resp):

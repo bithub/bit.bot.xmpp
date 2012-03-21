@@ -10,32 +10,28 @@ class BotPresence(xmppim.PresenceClientProtocol):
 
     def connectionInitialized(self):
         xmppim.PresenceClientProtocol.connectionInitialized(self)
-        print 'init roster'
-        #self.available(statuses={None: "Just ask me!"})
+        # im avalailable
         self.available()
+        #self.available(statuses={None: "Just ask me!"})
 
     def subscribeReceived(self, entity):
-        print 'got subscribe', entity
+        # im everybody's buddy
         self.subscribed(entity)
 
     def subscribedReceived(self, entity):
-        """
-        Subscription approval confirmation was received.
-
-        @param entity: entity from which the confirmation was received.
-        @type entity: {JID}
-        """
-        print 'subscribed received'
+        # somebody is my buddy
+        pass
 
     def unsubscribeReceived(self, entity):
-        print 'got unsubscribed', entity
+        # if you're not my buddy, then...
         self.unsubscribed(entity)
         self.unsubscribe(entity)
 
     def availableReceived(self, entity, show=None, statuses=None, priority=0):
-        print 'got available'
+        # one of my buddys is online
         self.friends_online.add(entity)
 
     def unavailableReceived(self, entity, statuses=None):
+        # one of my buddys went offline
         print 'unavailbale recieved'
         self.friends_online.remove(entity)
