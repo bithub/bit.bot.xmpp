@@ -5,9 +5,10 @@ from twisted.words.xish import domish
 
 from wokkel.xmppim import MessageProtocol, AvailablePresence
 
-from bit.bot.xmpp.request import BitBotRequest
-from bit.bot.common.interfaces import IBotRequest, IXMPPBotProtocol
 from bit.core.interfaces import IConfiguration
+from bit.bot.common.interfaces import IBotRequest
+from bit.bot.xmpp.interfaces import IXMPPBotProtocol
+from bit.bot.xmpp.request import BitBotRequest
 
 
 class BotProtocol(MessageProtocol):
