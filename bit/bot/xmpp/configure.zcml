@@ -2,7 +2,21 @@
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="bit.bot.xmpp">
   <include package="bit.bot.base" />
+
   <utility
       factory=".xmpp.botXMPP"
       />  
+
+  <utility
+      factory=".bot.XMPPBotProtocol"
+      provides=".interfaces.IXMPPBotProtocol"
+      />  
+
+  <adapter
+      factory=".request.XMPPMessageRequest"
+      for="bit.bot.xmpp.interfaces.IXMPPBotProtocol"
+      provides="bit.bot.common.interfaces.ISocketRequest"
+      name="message"
+      /> 
+
 </configure>

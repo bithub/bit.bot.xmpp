@@ -6,26 +6,24 @@ from twisted.words.protocols.jabber.jid import JID
 from wokkel import client
 
 from bit.core.interfaces import IConfiguration
-from bit.bot.xmpp.interfaces import IJabber
+from bit.bot.xmpp.interfaces import IJabber, IXMPPBotProtocol
 from bit.bot.xmpp.presence import BotPresence
-from bit.bot.xmpp.bot import BotProtocol
 
 
 @implementer(IJabber)
 def botXMPP():
     configuration = getUtility(IConfiguration)
-    bot_jid = JID(configuration.get('bot', 'jid'))
-    password = configuration.get(
-        'passwords', configuration.get('bot', 'password'))
+    bot_jid = JID(configuration.get('xmpp', 'jid'))
+    password = configuration.get('passwords', 'xmpp')
+    #import pdb; pdb.set_trace()
     return client.XMPPClient(bot_jid, password)
-
 
 def botFactory():
     bot = getUtility(IJabber)
-    curatebot = BotProtocol()
-    presence = BotPresence(curatebot)
-    curatebot._presence = presence
-    curatebot.setHandlerParent(bot)
+    protocol = getUtility(IXMPPBotProtocol)
+    presence = BotPresence(protocol)
+    protocol._presence = presence
+    protocol.setHandlerParent(bot)
     presence.setHandlerParent(bot)
     presence.available()
     return bot
