@@ -58,5 +58,13 @@ class XMPPBotProtocol(MessageProtocol):
     def onMessage(self, msg):
         log.msg('bit.bot.xmpp.bot: BotProtocol.onMessage', msg)
         if msg["type"] == 'chat' and hasattr(msg, "body") and msg.body:
-            request = getAdapter(self, ISocketRequest, name="message")
-            request.load(msg['from'], str(msg.body))
+            message = str(msg.body)
+            if message.startswith('>'):
+                request = getAdapter(self, ISocketRequest, name="command")
+                message = message[1:]
+            elif message.startswith('~'):
+                request = getAdapter(self, ISocketRequest, name="subscribe")
+                message = message[1:]
+            else:
+                request = getAdapter(self, ISocketRequest, name="message")
+            request.load(msg['from'], message)

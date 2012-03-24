@@ -1,6 +1,7 @@
 <configure 
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="bit.bot.xmpp">
+
   <include package="bit.bot.base" />
 
   <utility
@@ -17,6 +18,20 @@
       for="bit.bot.xmpp.interfaces.IXMPPBotProtocol"
       provides="bit.bot.common.interfaces.ISocketRequest"
       name="message"
+      />
+
+  <adapter
+      factory=".request.XMPPSubscribeRequest"
+      for="bit.bot.xmpp.interfaces.IXMPPBotProtocol"
+      provides="bit.bot.common.interfaces.ISocketRequest"
+      name="subscribe"
+      />
+
+  <adapter
+      factory=".request.XMPPCommandRequest"
+      for="bit.bot.xmpp.interfaces.IXMPPBotProtocol"
+      provides="bit.bot.common.interfaces.ISocketRequest"
+      name="command"
       /> 
 
 </configure>
