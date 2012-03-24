@@ -5,23 +5,23 @@ from zope.component import getUtility, queryAdapter
 
 from twisted.python import log
 
-from bit.core.interfaces import IConfiguration
-from bit.bot.common.interfaces import IIntelligent, ISocketRequest,\
-    ICommand, ISubscribe
+from bit.core.interfaces import IConfiguration, ICommand
+from bit.bot.common.interfaces import IIntelligent, ISubscribe
+from bit.bot.xmpp.interfaces import IXMPPSocketRequest
 
 
 class XMPPMessageRequest(object):
-    implements(ISocketRequest)
+    implements(IXMPPSocketRequest)
 
     def __init__(self, proto):
         self.proto = proto
 
     def response(self, msg):
-        log.msg('bit.bot.http.request: MessageRequest.response: ', msg)
+        log.msg('bit.bot.xmpp.request: MessageRequest.response: ', msg)
         self.proto.transport.write(json.dumps(msg))
 
     def load(self, sessionid, msg):
-        log.msg('bit.bot.http.request: MessageRequest.load: ',
+        log.msg('bit.bot.xmpp.request: MessageRequest.load: ',
                 sessionid, msg)
         self.session_id = sessionid
         domain = getUtility(IConfiguration).get('bot', 'domain')
@@ -33,23 +33,23 @@ class XMPPMessageRequest(object):
         return ask
 
     def speak(self, msg):
-        log.msg('bit.bot.http.request: MessageRequest.speak ',
+        log.msg('bit.bot.xmpp.request: MessageRequest.speak ',
                 self.session_id, msg)
         return self.proto.speak(self.session_id, msg)
 
 
 class XMPPCommandRequest(object):
-    implements(ISocketRequest)
+    implements(IXMPPSocketRequest)
 
     def __init__(self, proto):
         self.proto = proto
 
     def response(self, msg):
-        log.msg('bit.bot.http.request: CommandRequest.response: ', msg)
+        log.msg('bit.bot.xmpp.request: CommandRequest.response: ', msg)
         self.proto.transport.write(json.dumps(msg))
 
     def load(self, sessionid, msg):
-        log.msg('bit.bot.http.request: CommandRequest.load: ',
+        log.msg('bit.bot.xmpp.request: CommandRequest.load: ',
                 sessionid, msg)
         self.session_id = sessionid
 
@@ -62,23 +62,23 @@ class XMPPCommandRequest(object):
         return command.load(sessionid, msg).addCallback(self.speak)
 
     def speak(self, msg):
-        log.msg('bit.bot.http.request: CommandRequest.speak ',
+        log.msg('bit.bot.xmpp.request: CommandRequest.speak ',
                 self.session_id, msg)
         return self.proto.speak(self.session_id, msg)
 
 
 class XMPPSubscribeRequest(object):
-    implements(ISocketRequest)
+    implements(IXMPPSocketRequest)
 
     def __init__(self, proto):
         self.proto = proto
 
     def response(self, msg):
-        log.msg('bit.bot.http.request: SubscribeRequest.response: ', msg)
+        log.msg('bit.bot.xmpp.request: SubscribeRequest.response: ', msg)
         self.proto.transport.write(json.dumps(msg))
 
     def load(self, sessionid, msg):
-        log.msg('bit.bot.http.request: SubscribeRequest.load: ',
+        log.msg('bit.bot.xmpp.request: SubscribeRequest.load: ',
                 sessionid, msg)
         self.session_id = sessionid
         subscribe = queryAdapter(self, ISubscribe, msg.strip().split(' ')[0])
@@ -86,6 +86,6 @@ class XMPPSubscribeRequest(object):
         return subscribe.load(sessionid, msg).addCallback(self.speak)
 
     def speak(self, msg):
-        log.msg('bit.bot.http.request: SubscribeRequest.speak ',
+        log.msg('bit.bot.xmpp.request: SubscribeRequest.speak ',
                 self.session_id, msg)
         return self.proto.speak(self.session_id, msg)
