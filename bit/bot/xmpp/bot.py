@@ -1,5 +1,5 @@
 from zope.interface import implements
-from zope.component import getGlobalSiteManager, getUtility, getAdapter
+from zope.component import getUtility, getAdapter
 
 from twisted.python import log
 from twisted.words.xish import domish
@@ -7,7 +7,7 @@ from twisted.words.xish import domish
 from wokkel.xmppim import MessageProtocol, AvailablePresence
 
 from bit.core.interfaces import IConfiguration
-from bit.bot.common.interfaces import IBotRequest, ISocketRequest
+from bit.bot.common.interfaces import ISocketRequest
 from bit.bot.xmpp.interfaces import IXMPPBotProtocol
 
 
@@ -41,9 +41,7 @@ class XMPPBotProtocol(MessageProtocol):
         log.msg('bit.bot.xmpp.bot: BotProtocol.presence')
         presence = domish.Element(('jabber:client', 'presence'))
         for k, v in pres.items():
-
             presence[k] = v
-
         self.send(presence)
 
     def subscribe(self, recip):

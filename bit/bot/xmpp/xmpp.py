@@ -18,6 +18,7 @@ def botXMPP():
     #import pdb; pdb.set_trace()
     return client.XMPPClient(bot_jid, password)
 
+
 def botFactory():
     bot = getUtility(IJabber)
     protocol = getUtility(IXMPPBotProtocol)
