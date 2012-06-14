@@ -15,7 +15,6 @@ def botXMPP():
     configuration = getUtility(IConfiguration)
     bot_jid = JID(configuration.get('xmpp', 'jid'))
     password = configuration.get('passwords', 'xmpp')
-    #import pdb; pdb.set_trace()
     return client.XMPPClient(bot_jid, password)
 
 
